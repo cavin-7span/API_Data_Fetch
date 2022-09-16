@@ -4,6 +4,7 @@ import 'package:demo_crud/graphql/app_graphql_client.dart';
 
 class DashboardGraphqlSource {
   final AppGraphQlClient? appGraphQlClient;
+
   DashboardGraphqlSource({this.appGraphQlClient});
 
   Stream<CountriesGraphqlResponse> getCountries() {

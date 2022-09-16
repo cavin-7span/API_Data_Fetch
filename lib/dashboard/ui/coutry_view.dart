@@ -1,12 +1,14 @@
 import 'package:demo_crud/base/base_bloc.dart';
 import 'package:demo_crud/base/base_state.dart';
+import 'package:demo_crud/characters/bloc/character_bloc.dart';
+import 'package:demo_crud/characters/character_state.dart';
+import 'package:demo_crud/characters/di/character_module.dart';
+import 'package:demo_crud/characters/model/character_data_model.dart';
 import 'package:demo_crud/dashboard/bloc/dashboard_bloc.dart';
 import 'package:demo_crud/dashboard/di/dashboard_module.dart';
 import 'package:demo_crud/dashboard/model/dashboard_model.dart';
 import 'package:demo_crud/dashboard/state/dashobard_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class CountryView extends StatefulWidget {
   const CountryView({Key? key}) : super(key: key);
@@ -16,11 +18,13 @@ class CountryView extends StatefulWidget {
 }
 
 class _CountryViewState extends BaseState<CountryView> {
-  DashBoardBloc? _dashboardBloc;
+  CharacterBloc? _characterBloc;
+  // DashBoardBloc? _dashboardBloc;
   @override
   void initState() {
     super.initState();
-    _dashboardBloc = DashboardModule().getDashboardBloc();
+    _characterBloc = CharacterModule().getCharacterBloc();
+    // _dashboardBloc = DashboardModule().getDashboardBloc();
   }
 
   @override
@@ -32,11 +36,11 @@ class _CountryViewState extends BaseState<CountryView> {
           style: TextStyle(fontSize: 20),
         ),
       ),
-      body: StreamBuilder<DashboardState>(
-        stream: _dashboardBloc!.dashboardState,
+      body: StreamBuilder<CharacterState>(
+        stream: _characterBloc!.characterState,
+        // stream: _dashboardBloc!.dashboardState,
         builder: (ctx, snapshot) {
           final state = snapshot.data;
-          /// Loading indicator
           if (state?.isLoading() ?? true) {
             return const Center(
               child: Text("Data is loading"),
@@ -48,13 +52,19 @@ class _CountryViewState extends BaseState<CountryView> {
             );
           }
           else {
-            return StreamBuilder<List<DashboardModel>?>(
-                stream: _dashboardBloc!.countryDataStream,
+            return StreamBuilder<List<CharacterDataModel>?>(
+                stream: _characterBloc!.characterDataStream,
                 builder: (context, snapshot) {
                   final items = snapshot.data ?? [];
+                  if (items.isEmpty) {
+                    print("empty");
+                    return Text("Empty");
+
+                  }
                   return ListView.builder(itemCount: items.length,itemBuilder: (ctx, index) {
                     return ListTile(
                       title: Text(items[index].name??''),
+                      subtitle: Text(items[index].gender??''),
                     );
                   });
                 });
@@ -66,6 +76,6 @@ class _CountryViewState extends BaseState<CountryView> {
 
   @override
   BaseBloc? getBaseBloc() {
-    return _dashboardBloc;
+    return _characterBloc;
   }
 }

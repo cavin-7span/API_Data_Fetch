@@ -24,10 +24,10 @@ class DashboardModule {
   /// Get dashboard repo
   DashboardRepo getDashboardRepo() {
     return DashboardRepo(
-      counterGraphQlEntityMapper: CounterGraphQlEntityMapper(),
       dashboardGraphqlSource: DashboardGraphqlSource(
-          appGraphQlClient:
-              AppGraphQlClient("https://countries.trevorblades.com/")),
+        appGraphQlClient:
+            AppGraphQlClient("https://countries.trevorblades.com/"),
+      ),
       dashboardResponseMapper: DashboardResponseMapper(),
     );
   }

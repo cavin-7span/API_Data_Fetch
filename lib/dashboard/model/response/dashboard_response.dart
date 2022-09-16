@@ -7,9 +7,13 @@ class CountriesGraphqlResponse {
   CountriesGraphqlResponse.fromJson(Map<String, dynamic> map) {
     final dataDashBoardJson = map['countries'];
     if (dataDashBoardJson != null && dataDashBoardJson is List) {
-      countriesGraphqlEntity.addAll(dataDashBoardJson
-          .map((e) => DashboardGraphqlEntity.fromJson(e))
-          .toList());
+      countriesGraphqlEntity.addAll(
+        dataDashBoardJson
+            .map(
+              (e) => DashboardGraphqlEntity.fromJson(e),
+            )
+            .toList(),
+      );
     }
   }
 }

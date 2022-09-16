@@ -9,10 +9,8 @@ import 'package:demo_crud/dashboard/source/dashboard_graphql_request.dart';
 class DashboardRepo {
   DashboardGraphqlSource? dashboardGraphqlSource;
   DashboardResponseMapper? dashboardResponseMapper;
-  CounterGraphQlEntityMapper? counterGraphQlEntityMapper;
 
   DashboardRepo({
-    this.counterGraphQlEntityMapper,
     this.dashboardResponseMapper,
     this.dashboardGraphqlSource,
   });
@@ -20,7 +18,6 @@ class DashboardRepo {
   Stream<CountryModel> getCountries() {
     return dashboardGraphqlSource!
         .getCountries()
-        // .getGoogleFonts()
         .map((event) => dashboardResponseMapper!.map(event));
   }
 }

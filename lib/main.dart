@@ -2,6 +2,7 @@
 import 'dart:developer';
 
 import 'package:demo_crud/dashboard/ui/coutry_view.dart';
+import 'package:demo_crud/products/ui/product_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: CountryView(),
+      home: ProductUI(),
     );
   }
 }
